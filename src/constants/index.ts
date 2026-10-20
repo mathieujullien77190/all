@@ -5,6 +5,7 @@ export const API = {
   runs: '/api/runs',
   run: '/api/run',
   stop: '/api/stop',
+  dismiss: '/api/dismiss',
   open: '/api/open',
   tool: '/api/tool',
 } as const

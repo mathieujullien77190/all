@@ -17,6 +17,7 @@ export const api = {
   runs: (): Promise<Run[]> => request(API.runs),
   run: (project: string, pkg: string, script: string): Promise<unknown> => request(API.run, { project, pkg, script }),
   stop: (id: string): Promise<unknown> => request(API.stop, { id }),
+  dismiss: (id: string): Promise<unknown> => request(API.dismiss, { id }),
   open: (project: string | null, target: OpenTarget): Promise<unknown> => request(API.open, { project, target }),
   tool: (tool: string): Promise<{ withConnection?: boolean }> => request(API.tool, { tool }),
 }

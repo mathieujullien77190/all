@@ -7,7 +7,7 @@ import { EMPTY_LOG_TEXT } from './constants'
 import { clampWidth, readStoredWidth, runIcon, runLabel, storeWidth } from './helpers'
 import type { RunsPanelProps } from './types'
 
-export const RunsPanel = ({ runs, onStop }: RunsPanelProps) => {
+export const RunsPanel = ({ runs, onStop, onClose }: RunsPanelProps) => {
   const [selected, setSelected] = useState<string | null>(null)
   const [width, setWidth] = useState(readStoredWidth)
   const [dragging, setDragging] = useState(false)
@@ -48,11 +48,24 @@ export const RunsPanel = ({ runs, onStop }: RunsPanelProps) => {
       />
       <div className="flex h-full flex-col p-3">
         <div className="mb-2 flex flex-wrap items-center gap-2">
-          {runs.map((r) => (
-            <Button key={r.id} tone={r.id === current.id ? 'active' : 'muted'} className="font-mono" onClick={() => setSelected(r.id)}>
-              {runIcon(r)} {runLabel(r)}
-            </Button>
-          ))}
+          {runs.map((r) => {
+            const tone = r.id === current.id ? 'active' : 'muted'
+            return (
+              <span key={r.id} className="flex">
+                <Button tone={tone} className="rounded-r-none font-mono" onClick={() => setSelected(r.id)}>
+                  {runIcon(r)} {runLabel(r)}
+                </Button>
+                <Button
+                  tone={tone}
+                  className="rounded-l-none border-l-0"
+                  title={r.status === 'running' ? 'Arrêter et fermer' : 'Fermer'}
+                  onClick={() => onClose(r.id)}
+                >
+                  ×
+                </Button>
+              </span>
+            )
+          })}
           {current.url && (
             <ExternalLink href={current.url} variant="button" size="sm" tone="success" className="ml-auto">
               ouvrir ↗ {displayUrl(current.url)}

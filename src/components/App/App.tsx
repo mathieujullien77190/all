@@ -77,7 +77,7 @@ export const App = () => {
           ))}
         </div>
       </main>
-      <RunsPanel runs={runs} onStop={(id) => act(() => api.stop(id))} />
+      <RunsPanel runs={runs} onStop={(id) => act(() => api.stop(id))} onClose={(id) => act(() => api.dismiss(id))} />
     </div>
   )
 }

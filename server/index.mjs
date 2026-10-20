@@ -175,6 +175,14 @@ async function stopRun({ id }) {
   return { ok: true }
 }
 
+async function dismissRun({ id }) {
+  const run = runs.get(id)
+  if (!run) throw new HttpError(404, 'Unknown run')
+  await stopRun({ id })
+  runs.delete(id)
+  return { ok: true }
+}
+
 function detached(cmd, args, options = {}) {
   const child = spawn(cmd, args, { detached: true, stdio: 'ignore', ...options })
   child.on('error', () => {})
@@ -224,6 +232,7 @@ const routes = {
   'GET /api/runs': () => listRuns(),
   'POST /api/run': startRun,
   'POST /api/stop': stopRun,
+  'POST /api/dismiss': dismissRun,
   'POST /api/open': openTarget,
   'POST /api/tool': launchTool,
 }
