@@ -42,10 +42,10 @@
     },
     {
       "id": "vercel-books",
-      "label": "Vercel - books-zqje",
+      "label": "Vercel - books-mathieu-jullien",
       "kind": "hosting",
-      "url": "https://vercel.com/dashboard",
-      "note": "projet books-zqje"
+      "url": "https://vercel.com/supermatous-projects/books-mathieu-jullien",
+      "note": "projet books-mathieu-jullien"
     },
     {
       "id": "vercel-aoc",
