@@ -6,7 +6,7 @@ import RunsPanel from '@/components/RunsPanel'
 import { api, filterProjects } from '@/helpers'
 import { useProjects, useRuns } from '@/hooks'
 import type { ProjectFilter } from '@/types'
-import { LOADING_TEXT, OFFLINE_TEXT, TOOL_LAUNCH_TEXT } from './constants'
+import { APP_TITLE, LOADING_TEXT, OFFLINE_TEXT, TOOL_LAUNCH_TEXT } from './constants'
 
 export const App = () => {
   const { data, error, reload } = useProjects()
@@ -43,7 +43,10 @@ export const App = () => {
     <div className="flex items-start">
       <main className="mx-auto min-w-0 max-w-7xl flex-1 space-y-6 px-4 py-6">
         <header className="flex flex-wrap items-baseline justify-between gap-2">
-          <h1 className="text-2xl font-bold text-slate-100">Mes projets</h1>
+          <h1 className="flex items-center gap-3 text-2xl font-bold text-slate-100">
+            <img src="/favicon.svg" alt="" className="size-10" />
+            {APP_TITLE}
+          </h1>
           <span className="text-xs text-slate-500">{data.root}</span>
         </header>
 
