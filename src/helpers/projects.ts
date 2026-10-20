@@ -9,14 +9,8 @@ export const runId = (project: string, pkg: string, script: string): string =>
 export const findRun = (runs: Run[], project: string, pkg: string, script: string): Run | undefined =>
   runs.find((r) => r.id === runId(project, pkg, script))
 
-export const filterProjects = (projects: Project[], query: string, filter: ProjectFilter): Project[] => {
-  const q = query.trim().toLowerCase()
-  return projects.filter((p) => {
-    if (filter === 'cloned' && !p.exists) return false
-    if (filter === 'remote' && p.exists) return false
-    return !q || [p.name, p.description, ...p.tags].some((s) => s.toLowerCase().includes(q))
-  })
-}
+export const filterProjects = (projects: Project[], filter: ProjectFilter): Project[] =>
+  projects.filter((p) => (filter === 'cloned' ? p.exists : filter === 'remote' ? !p.exists : true))
 
 export const serviceName = (label: string): string => label.split(' - ')[0].toLowerCase()
 

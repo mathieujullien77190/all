@@ -11,11 +11,10 @@ import { LOADING_TEXT, OFFLINE_TEXT, TOOL_LAUNCH_TEXT } from './constants'
 export const App = () => {
   const { data, error, reload } = useProjects()
   const { runs, refresh } = useRuns()
-  const [query, setQuery] = useState('')
   const [filter, setFilter] = useState<ProjectFilter>('all')
   const [message, setMessage] = useState<string | null>(null)
 
-  const projects = useMemo(() => filterProjects(data?.projects ?? [], query, filter), [data, query, filter])
+  const projects = useMemo(() => filterProjects(data?.projects ?? [], filter), [data, filter])
 
   const act = (fn: () => Promise<unknown>, done?: string) =>
     fn()
@@ -57,8 +56,6 @@ export const App = () => {
         />
 
         <Filters
-          query={query}
-          onQueryChange={setQuery}
           filter={filter}
           onFilterChange={setFilter}
           count={projects.length}
