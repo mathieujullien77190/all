@@ -160,8 +160,8 @@
     },
     {
       "id": "aoc-art",
-      "name": "aoc-art",
-      "description": "Visualisations Advent of Code, Next.js.",
+      "name": "portfolio",
+      "description": "Mon portfolio : mes projets mis en avant, dont les visualisations Advent of Code.",
       "tags": [
         "next",
         "vercel"
@@ -206,7 +206,7 @@
     {
       "id": "house",
       "name": "house",
-      "description": "Gestion de cameras maison (house-cameras), Vite.",
+      "description": "Video surveillance controlee par Raspberry Pi.",
       "tags": [
         "vite",
         "react"
@@ -246,7 +246,7 @@
     {
       "id": "birds",
       "name": "birds",
-      "description": "Visionneuse STL, laser-control, site nichoir Pi.",
+      "description": "Outils pour concevoir un nichoir pour mesange high tech (3D, laser, site Pi).",
       "tags": [
         "three",
         "vite",
@@ -260,7 +260,7 @@
       "packages": [
         {
           "path": ".",
-          "label": "visionneuse-stl"
+          "label": "nichoir"
         },
         {
           "path": "laser-control",
