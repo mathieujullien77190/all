@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react'
-import { PROJECTS_POLL_MS } from '@/constants'
+import { IS_STATIC, PROJECTS_POLL_MS } from '@/constants'
 import { api } from '@/helpers'
 import type { ProjectsPayload } from '@/types'
 
@@ -19,6 +19,7 @@ export const useProjects = () => {
 
   useEffect(() => {
     reload()
+    if (IS_STATIC) return
     const timer = setInterval(reload, PROJECTS_POLL_MS)
     window.addEventListener('focus', reload)
     return () => {

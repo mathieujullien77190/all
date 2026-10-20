@@ -8,6 +8,7 @@
     "dev:web": "vite",
     "dev:api": "node server/index.mjs",
     "build": "tsc -b && vite build",
+    "build:pages": "node scripts/build-public-data.mjs && tsc -b && vite build --mode pages --base=/all/",
     "preview": "vite preview",
     "typecheck": "tsc --noEmit",
     "lint": "eslint .",

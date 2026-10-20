@@ -10,6 +10,10 @@ export const API = {
   tool: '/api/tool',
 } as const
 
+// GitHub Pages build (vite --mode pages): no local API, data comes from a static snapshot.
+export const IS_STATIC = import.meta.env.MODE === 'pages'
+export const STATIC_PROJECTS_URL = `${import.meta.env.BASE_URL}projects.static.json`
+
 export const RUNS_POLL_MS = 1500
 export const PROJECTS_POLL_MS = 5000
 export const RUN_ID_SEPARATOR = '|'
