@@ -247,25 +247,6 @@
       ]
     },
     {
-      "id": "test",
-      "name": "test",
-      "description": "Projet de test Vite avec tests unitaires et e2e.",
-      "tags": [
-        "vite",
-        "test"
-      ],
-      "dir": "test - Copie",
-      "repo": "test",
-      "live": [],
-      "resources": [],
-      "packages": [
-        {
-          "path": ".",
-          "label": "app"
-        }
-      ]
-    },
-    {
       "id": "job",
       "name": "job",
       "description": "Suivi de candidatures : page Vite lue depuis Firestore, deployee sur GitHub Pages.",
