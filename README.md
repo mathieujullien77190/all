@@ -38,6 +38,12 @@ déjà, il ouvre juste la page.
 - `MONGO_COMPASS_PATH` : chemin de MongoDBCompass.exe si installe ailleurs que `%LOCALAPPDATA%\MongoDBCompass`.
 - Le bouton Compass lit `MONGODB_URI` dans le `.env.local` du projet `books` (jamais envoye au navigateur ni commite).
 
+## Architecture
+
+![Schema d'architecture : navigateur React, API Node locale, donnees des projets et mode GitHub Pages en lecture seule](docs/architecture.svg)
+
+Toute action locale passe par `src/helpers/api.ts` : en local elle appelle l'API Node, sur GitHub Pages elle leve `LocalOnlyError`.
+
 ## Securite
 
 L'API n'execute que les scripts declares dans les `package.json` des projets listes, refuse les requetes dont le Host/Origin n'est pas localhost, et ne sert aucun secret.

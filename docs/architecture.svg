@@ -1,0 +1,104 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 540" width="1000" height="540" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif">
+  <title>Architecture du dashboard</title>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#1f2a37"/>
+    </marker>
+  </defs>
+  <rect width="1000" height="540" fill="#ffffff"/>
+
+  <!-- Navigateur -->
+  <rect x="20" y="20" width="300" height="500" rx="14" fill="#f3f7fb" stroke="#9db3c8" stroke-width="1.5"/>
+  <text x="40" y="48" font-size="15" font-weight="700" fill="#1f2a37">Navigateur (React 19 + Vite)</text>
+
+  <rect x="40" y="70" width="260" height="150" rx="10" fill="#ffffff" stroke="#1f2a37" stroke-width="1.5"/>
+  <text x="170" y="98" font-size="15" font-weight="700" text-anchor="middle" fill="#1f2a37">App</text>
+  <g font-size="12.5" fill="#5b6b7c" text-anchor="middle">
+    <text x="170" y="124">LinksBar · ProjectCard</text>
+    <text x="170" y="144">PackageScripts · RunsPanel</text>
+    <text x="170" y="164">LocalOnlyDialog</text>
+    <text x="170" y="196" fill="#1f2a37">lit data, runs, lance les actions</text>
+  </g>
+
+  <rect x="40" y="290" width="260" height="110" rx="10" fill="#fff7ec" stroke="#b5651d" stroke-width="1.5"/>
+  <text x="170" y="318" font-size="15" font-weight="700" text-anchor="middle" fill="#1f2a37">helpers/api.ts</text>
+  <g font-size="12.5" fill="#5b6b7c" text-anchor="middle">
+    <text x="170" y="344">passage unique de toute action locale</text>
+    <text x="170" y="364">IS_STATIC = vrai en mode pages</text>
+    <text x="170" y="384">sinon LocalOnlyError</text>
+  </g>
+
+  <line x1="170" y1="220" x2="170" y2="288" stroke="#1f2a37" stroke-width="1.6" marker-end="url(#arrow)"/>
+
+  <!-- API locale -->
+  <rect x="370" y="20" width="330" height="500" rx="14" fill="#f4faf4" stroke="#8fb996" stroke-width="1.5"/>
+  <text x="390" y="48" font-size="15" font-weight="700" fill="#1f2a37">Mode local : API Node</text>
+  <text x="390" y="66" font-size="12" fill="#5b6b7c">127.0.0.1:4777 · refuse Host/Origin non locaux</text>
+
+  <rect x="390" y="84" width="290" height="150" rx="10" fill="#ffffff" stroke="#1f2a37" stroke-width="1.5"/>
+  <text x="535" y="110" font-size="15" font-weight="700" text-anchor="middle" fill="#1f2a37">server/index.mjs</text>
+  <g font-size="12.5" fill="#5b6b7c" text-anchor="middle">
+    <text x="535" y="136">GET /api/projects · /api/runs</text>
+    <text x="535" y="156">POST /api/run · stop · dismiss</text>
+    <text x="535" y="176">POST /api/open · tool</text>
+    <text x="535" y="206" fill="#1f2a37">sans dépendance, scripts déclarés seulement</text>
+  </g>
+
+  <rect x="390" y="270" width="290" height="110" rx="10" fill="#fffdf2" stroke="#c2b04a" stroke-width="1.5"/>
+  <text x="535" y="296" font-size="14" font-weight="700" text-anchor="middle" fill="#1f2a37">Données</text>
+  <g font-size="12.5" fill="#5b6b7c" text-anchor="middle">
+    <text x="535" y="320">data/projects.json (public, sans chemin)</text>
+    <text x="535" y="340">data/local.json (git-ignoré, overrides)</text>
+    <text x="535" y="360">.git/config des dossiers de ROOT</text>
+  </g>
+
+  <rect x="390" y="410" width="290" height="90" rx="10" fill="#fff7ec" stroke="#b5651d" stroke-width="1.5"/>
+  <text x="535" y="436" font-size="14" font-weight="700" text-anchor="middle" fill="#1f2a37">Actions sur la machine</text>
+  <g font-size="12.5" fill="#5b6b7c" text-anchor="middle">
+    <text x="535" y="458">npm run &lt;script&gt; des projets listés</text>
+    <text x="535" y="478">explorateur · VS Code · terminal · Compass</text>
+  </g>
+
+  <line x1="535" y1="234" x2="535" y2="268" stroke="#1f2a37" stroke-width="1.6" marker-end="url(#arrow)"/>
+  <text x="545" y="256" font-size="11.5" fill="#1f2a37">lit</text>
+  <line x1="535" y1="380" x2="535" y2="408" stroke="#1f2a37" stroke-width="1.6" marker-end="url(#arrow)"/>
+  <text x="545" y="399" font-size="11.5" fill="#1f2a37">lance</text>
+
+  <!-- navigateur -> API -->
+  <line x1="300" y1="345" x2="342" y2="345" stroke="#1f2a37" stroke-width="1.6"/>
+  <line x1="342" y1="345" x2="342" y2="150" stroke="#1f2a37" stroke-width="1.6"/>
+  <line x1="342" y1="150" x2="388" y2="150" stroke="#1f2a37" stroke-width="1.6" marker-end="url(#arrow)"/>
+  <text x="334" y="250" font-size="11.5" text-anchor="end" fill="#1f2a37">fetch</text>
+
+  <!-- Mode pages -->
+  <rect x="740" y="20" width="240" height="500" rx="14" fill="#f7f3fb" stroke="#b39dc8" stroke-width="1.5"/>
+  <text x="760" y="48" font-size="15" font-weight="700" fill="#1f2a37">Mode GitHub Pages</text>
+  <text x="760" y="66" font-size="12" fill="#5b6b7c">lecture seule, base /all/</text>
+
+  <rect x="760" y="90" width="200" height="110" rx="10" fill="#ffffff" stroke="#1f2a37" stroke-width="1.5"/>
+  <text x="860" y="116" font-size="14" font-weight="700" text-anchor="middle" fill="#1f2a37">build-public-data.mjs</text>
+  <g font-size="12.5" fill="#5b6b7c" text-anchor="middle">
+    <text x="860" y="140">liste blanche de champs</text>
+    <text x="860" y="160">rien de local ne fuit</text>
+    <text x="860" y="180" fill="#1f2a37">→ projects.static.json</text>
+  </g>
+
+  <rect x="760" y="250" width="200" height="110" rx="10" fill="#ffffff" stroke="#1f2a37" stroke-width="1.5"/>
+  <text x="860" y="276" font-size="14" font-weight="700" text-anchor="middle" fill="#1f2a37">Site statique</text>
+  <g font-size="12.5" fill="#5b6b7c" text-anchor="middle">
+    <text x="860" y="300">projects() lit le JSON</text>
+    <text x="860" y="320">runs() renvoie []</text>
+    <text x="860" y="340">toute action : refus</text>
+  </g>
+
+  <rect x="760" y="410" width="200" height="90" rx="10" fill="#fff7ec" stroke="#b5651d" stroke-width="1.5"/>
+  <text x="860" y="436" font-size="14" font-weight="700" text-anchor="middle" fill="#1f2a37">LocalOnlyDialog</text>
+  <g font-size="12.5" fill="#5b6b7c" text-anchor="middle">
+    <text x="860" y="458">« Disponible uniquement</text>
+    <text x="860" y="478">en local »</text>
+  </g>
+
+  <line x1="860" y1="200" x2="860" y2="248" stroke="#1f2a37" stroke-width="1.6" marker-end="url(#arrow)"/>
+  <line x1="860" y1="360" x2="860" y2="408" stroke="#1f2a37" stroke-width="1.6" marker-end="url(#arrow)"/>
+  <text x="870" y="388" font-size="11.5" fill="#1f2a37">LocalOnlyError</text>
+</svg>
