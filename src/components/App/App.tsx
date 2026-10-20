@@ -48,7 +48,6 @@ export const App = () => {
 
         <LinksBar
           links={data.links}
-          resources={data.resources}
           tools={data.tools}
           onTool={(id) => act(() => api.tool(id), TOOL_LAUNCH_TEXT)}
           onOpenRoot={(target) => act(() => api.open(null, target))}
