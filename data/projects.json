@@ -94,7 +94,7 @@
       "dir": "order",
       "repo": "books",
       "live": [
-        "https://books-zqje.vercel.app"
+        "https://books-mathieu-jullien.vercel.app/"
       ],
       "resources": [
         "mongo-books",
