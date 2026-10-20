@@ -294,20 +294,6 @@
           "label": "candidatures"
         }
       ]
-    },
-    {
-      "id": "home-manager-back",
-      "name": "home-manager-back",
-      "description": "Back de home-manager (non clone localement).",
-      "tags": [
-        "ts",
-        "back"
-      ],
-      "dir": null,
-      "repo": "home-manager-back",
-      "live": [],
-      "resources": [],
-      "packages": []
     }
   ]
 }
