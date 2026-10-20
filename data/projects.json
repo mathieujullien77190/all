@@ -62,12 +62,6 @@
       "note": "Firestore + Hosting"
     },
     {
-      "id": "pages-azimuth",
-      "label": "GitHub Pages - azimuth-quiz",
-      "kind": "hosting",
-      "url": "https://github.com/mathieujullien77190/azimuth-quiz/settings/pages"
-    },
-    {
       "id": "firebase-jobs",
       "label": "Firebase - jobs-930d3",
       "kind": "backend",
@@ -151,8 +145,7 @@
       ],
       "resources": [
         "admin-azimuth",
-        "firebase-azimuth",
-        "pages-azimuth"
+        "firebase-azimuth"
       ],
       "packages": [
         {
