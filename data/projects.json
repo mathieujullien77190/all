@@ -79,6 +79,13 @@
       "kind": "repo",
       "url": "https://www.npmjs.com/package/flower-shell",
       "note": "package publie"
+    },
+    {
+      "id": "admin-azimuth",
+      "label": "Admin - azimuth-quiz",
+      "kind": "hosting",
+      "url": "https://mathieujullien77190.github.io/azimuth-quiz/admin/",
+      "note": "back-office des donnees (GitHub Pages)"
     }
   ],
   "projects": [
@@ -122,6 +129,7 @@
         "https://mathieujullien77190.github.io/azimuth-quiz/"
       ],
       "resources": [
+        "admin-azimuth",
         "firebase-azimuth",
         "pages-azimuth"
       ],
