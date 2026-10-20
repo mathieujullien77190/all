@@ -35,23 +35,15 @@ export function ProjectCard({ project, github, resources, runs, onRun, onStop, o
         </div>
       </header>
 
-      <div className="flex flex-wrap gap-2 text-xs">
-        {project.repo && (
-          <a className={small} href={repoUrl(github, project.repo)} target="_blank" rel="noreferrer">
-            repo ↗
-          </a>
-        )}
+      <dl className="space-y-0.5 text-xs">
+        {project.repo && <LinkRow name="repo" url={repoUrl(github, project.repo)} />}
         {project.live.map((url) => (
-          <a key={url} className={small} href={url} target="_blank" rel="noreferrer">
-            live ↗
-          </a>
+          <LinkRow key={url} name="live" url={url} />
         ))}
         {linked.map((r) => (
-          <a key={r.id} className={small} href={r.url} target="_blank" rel="noreferrer" title={r.note}>
-            {r.label} ↗
-          </a>
+          <LinkRow key={r.id} name={r.label.split(' - ')[0].toLowerCase()} url={r.url} title={r.note} />
         ))}
-      </div>
+      </dl>
 
       {project.exists && (
         <div className="flex flex-wrap gap-2 text-xs">
@@ -88,6 +80,19 @@ export function ProjectCard({ project, github, resources, runs, onRun, onStop, o
         </div>
       ))}
     </article>
+  )
+}
+
+function LinkRow({ name, url, title }: { name: string; url: string; title?: string }) {
+  return (
+    <div className="flex gap-1.5" title={title}>
+      <dt className="shrink-0 text-slate-500">{name} :</dt>
+      <dd className="min-w-0 truncate">
+        <a href={url} target="_blank" rel="noreferrer" className="text-sky-400 hover:underline">
+          {url.replace(/^https?:\/\//, '')}
+        </a>
+      </dd>
+    </div>
   )
 }
 
