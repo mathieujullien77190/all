@@ -24,7 +24,6 @@ export function ProjectCard({ project, github, resources, runs, onRun, onStop, o
         <div className="flex items-start justify-between gap-2">
           <h2 className="font-semibold text-slate-100">{project.name}</h2>
           {!project.local && <span className="text-xs text-amber-400">GitHub seul</span>}
-          {project.local && !project.repo && <span className="text-xs text-slate-500">local seul</span>}
         </div>
         <p className="text-sm text-slate-400">{project.description}</p>
         <div className="flex flex-wrap gap-1">

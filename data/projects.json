@@ -1,15 +1,36 @@
 {
   "github": "mathieujullien77190",
   "links": [
-    { "label": "GitHub", "url": "https://github.com/mathieujullien77190" },
-    { "label": "Vercel", "url": "https://vercel.com/dashboard" },
-    { "label": "Firebase", "url": "https://console.firebase.google.com/project/azimuth-quiz" },
-    { "label": "MongoDB Atlas", "url": "https://cloud.mongodb.com" },
-    { "label": "Expo", "url": "https://expo.dev" },
-    { "label": "npm", "url": "https://www.npmjs.com/settings/mathieujullien77190/packages" }
+    {
+      "label": "GitHub",
+      "url": "https://github.com/mathieujullien77190"
+    },
+    {
+      "label": "Vercel",
+      "url": "https://vercel.com/dashboard"
+    },
+    {
+      "label": "Firebase",
+      "url": "https://console.firebase.google.com/project/azimuth-quiz"
+    },
+    {
+      "label": "MongoDB Atlas",
+      "url": "https://cloud.mongodb.com"
+    },
+    {
+      "label": "Expo",
+      "url": "https://expo.dev"
+    },
+    {
+      "label": "npm",
+      "url": "https://www.npmjs.com/settings/mathieujullien77190/packages"
+    }
   ],
   "tools": {
-    "mongoCompass": { "envFile": "order/.env.local", "envKey": "MONGODB_URI" }
+    "mongoCompass": {
+      "envFile": "order/.env.local",
+      "envKey": "MONGODB_URI"
+    }
   },
   "resources": [
     {
@@ -51,214 +72,199 @@
       "id": "books",
       "name": "books (order)",
       "description": "App Next.js de gestion de livres, stockage MongoDB, deploiement Vercel.",
-      "tags": ["next", "mongodb", "vercel"],
+      "tags": [
+        "next",
+        "mongodb",
+        "vercel"
+      ],
       "dir": "order",
       "repo": "books",
-      "live": ["https://books-zqje.vercel.app"],
-      "resources": ["mongo-books", "vercel-books"],
-      "packages": [{ "path": ".", "label": "app" }]
+      "live": [
+        "https://books-zqje.vercel.app"
+      ],
+      "resources": [
+        "mongo-books",
+        "vercel-books"
+      ],
+      "packages": [
+        {
+          "path": ".",
+          "label": "app"
+        }
+      ]
     },
     {
       "id": "azimuth-quiz",
       "name": "azimuth-quiz (manu)",
       "description": "Quiz mobile Expo + back-office admin Vite, donnees Firebase.",
-      "tags": ["expo", "react-native", "firebase"],
+      "tags": [
+        "expo",
+        "react-native",
+        "firebase"
+      ],
       "dir": "manu",
       "repo": "azimuth-quiz",
-      "live": ["https://mathieujullien77190.github.io/azimuth-quiz/"],
-      "resources": ["firebase-azimuth", "pages-azimuth"],
+      "live": [
+        "https://mathieujullien77190.github.io/azimuth-quiz/"
+      ],
+      "resources": [
+        "firebase-azimuth",
+        "pages-azimuth"
+      ],
       "packages": [
-        { "path": ".", "label": "mobile" },
-        { "path": "admin", "label": "admin" }
+        {
+          "path": ".",
+          "label": "mobile"
+        },
+        {
+          "path": "admin",
+          "label": "admin"
+        }
       ]
     },
     {
       "id": "aoc-art",
       "name": "aoc-art",
       "description": "Visualisations Advent of Code, Next.js.",
-      "tags": ["next", "vercel"],
+      "tags": [
+        "next",
+        "vercel"
+      ],
       "dir": "aoc-art",
       "repo": "aoc-art",
-      "live": ["https://aoc2022.vercel.app"],
-      "resources": ["vercel-aoc"],
-      "packages": [{ "path": ".", "label": "app" }]
+      "live": [
+        "https://aoc2022.vercel.app"
+      ],
+      "resources": [
+        "vercel-aoc"
+      ],
+      "packages": [
+        {
+          "path": ".",
+          "label": "app"
+        }
+      ]
     },
     {
       "id": "flower-shell",
       "name": "flower-shell (flower-shell-2)",
       "description": "Terminal retro en React : moteur de commandes, historique, fenetre, rendu ASCII.",
-      "tags": ["react", "lib", "storybook"],
+      "tags": [
+        "react",
+        "lib",
+        "storybook"
+      ],
       "dir": "flower-shell-2",
       "repo": "flower-shell",
       "live": [],
       "resources": [],
-      "packages": [{ "path": ".", "label": "lib" }]
+      "packages": [
+        {
+          "path": ".",
+          "label": "lib"
+        }
+      ]
     },
     {
       "id": "house",
       "name": "house",
       "description": "Gestion de cameras maison (house-cameras), Vite.",
-      "tags": ["vite", "react"],
+      "tags": [
+        "vite",
+        "react"
+      ],
       "dir": "house",
       "repo": "house",
       "live": [],
       "resources": [],
-      "packages": [{ "path": ".", "label": "app" }]
+      "packages": [
+        {
+          "path": ".",
+          "label": "app"
+        }
+      ]
     },
     {
       "id": "space-discover",
       "name": "space-discover (testGame)",
       "description": "Jeu de decouverte spatiale avec moteur maison.",
-      "tags": ["game", "vite"],
+      "tags": [
+        "game",
+        "vite"
+      ],
       "dir": "testGame",
       "repo": "space-discover",
       "live": [],
       "resources": [],
-      "packages": [{ "path": ".", "label": "game" }]
+      "packages": [
+        {
+          "path": ".",
+          "label": "game"
+        }
+      ]
     },
     {
       "id": "birds",
       "name": "birds (testLowPoly)",
       "description": "Visionneuse STL, laser-control, site nichoir Pi, editeur d'oiseaux.",
-      "tags": ["three", "vite", "python"],
+      "tags": [
+        "three",
+        "vite",
+        "python"
+      ],
       "dir": "testLowPoly",
       "repo": "birds",
       "live": [],
       "resources": [],
       "packages": [
-        { "path": ".", "label": "visionneuse-stl" },
-        { "path": "laser-control", "label": "laser-control" },
-        { "path": "pi/site", "label": "nichoir-pi-site" },
-        { "path": "archives/editeur-oiseaux", "label": "editeur-oiseaux" },
-        { "path": "archives/ancien-monde-lowpoly", "label": "photo-to-3d" }
+        {
+          "path": ".",
+          "label": "visionneuse-stl"
+        },
+        {
+          "path": "laser-control",
+          "label": "laser-control"
+        },
+        {
+          "path": "pi/site",
+          "label": "nichoir-pi-site"
+        },
+        {
+          "path": "archives/editeur-oiseaux",
+          "label": "editeur-oiseaux"
+        },
+        {
+          "path": "archives/ancien-monde-lowpoly",
+          "label": "photo-to-3d"
+        }
       ]
     },
     {
       "id": "test",
       "name": "test (test - Copie)",
       "description": "Projet de test Vite avec tests unitaires et e2e.",
-      "tags": ["vite", "test"],
+      "tags": [
+        "vite",
+        "test"
+      ],
       "dir": "test - Copie",
       "repo": "test",
       "live": [],
       "resources": [],
-      "packages": [{ "path": ".", "label": "app" }]
-    },
-    {
-      "id": "movies-explorer",
-      "name": "movie",
-      "description": "Explorateur de films, Vite.",
-      "tags": ["vite", "react"],
-      "dir": "movie",
-      "repo": null,
-      "live": [],
-      "resources": [],
-      "packages": [{ "path": "movies-explorer", "label": "movies-explorer" }]
-    },
-    {
-      "id": "snif",
-      "name": "snif",
-      "description": "App snif, Vite.",
-      "tags": ["vite"],
-      "dir": "snif",
-      "repo": null,
-      "live": [],
-      "resources": [],
-      "packages": [{ "path": ".", "label": "app" }]
-    },
-    {
-      "id": "testBrick",
-      "name": "testBrick",
-      "description": "Etagere contreplaque (etagere-contreplaque).",
-      "tags": ["vite"],
-      "dir": "testBrick",
-      "repo": null,
-      "live": [],
-      "resources": [],
-      "packages": [{ "path": ".", "label": "app" }]
-    },
-    {
-      "id": "test9",
-      "name": "test9",
-      "description": "Bac a sable Next.js.",
-      "tags": ["next"],
-      "dir": "test9",
-      "repo": null,
-      "live": [],
-      "resources": [],
-      "packages": [{ "path": ".", "label": "app" }]
-    },
-    {
-      "id": "test2",
-      "name": "test2",
-      "description": "Bac a sable create-react-app.",
-      "tags": ["cra"],
-      "dir": "test2",
-      "repo": null,
-      "live": [],
-      "resources": [],
-      "packages": [{ "path": ".", "label": "app" }]
-    },
-    {
-      "id": "manu2",
-      "name": "manu2 (higher-lower)",
-      "description": "Jeu higher/lower, Expo.",
-      "tags": ["expo", "react-native"],
-      "dir": "manu2",
-      "repo": null,
-      "live": [],
-      "resources": [],
-      "packages": [{ "path": ".", "label": "app" }]
-    },
-    {
-      "id": "paper",
-      "name": "paper (chemins-contes)",
-      "description": "App Expo chemins-contes.",
-      "tags": ["expo", "react-native"],
-      "dir": "paper",
-      "repo": null,
-      "live": [],
-      "resources": [],
-      "packages": [{ "path": "app", "label": "app" }]
-    },
-    {
-      "id": "AwesomeProject",
-      "name": "AwesomeProject",
-      "description": "Squelette React Native.",
-      "tags": ["react-native"],
-      "dir": "AwesomeProject",
-      "repo": null,
-      "live": [],
-      "resources": [],
-      "packages": [{ "path": ".", "label": "app" }]
-    },
-    {
-      "id": "AwesomeProject2",
-      "name": "AwesomeProject2",
-      "description": "Squelette React Native.",
-      "tags": ["react-native"],
-      "dir": "AwesomeProject2",
-      "repo": null,
-      "live": [],
-      "resources": [],
-      "packages": [{ "path": ".", "label": "app" }]
-    },
-    {
-      "id": "papayo",
-      "name": "papayo",
-      "description": "Dossier local sans package.",
-      "tags": [],
-      "dir": "papayo",
-      "repo": null,
-      "live": [],
-      "resources": [],
-      "packages": []
+      "packages": [
+        {
+          "path": ".",
+          "label": "app"
+        }
+      ]
     },
     {
       "id": "job",
       "name": "job",
       "description": "Repo GitHub (non clone localement).",
-      "tags": ["js"],
+      "tags": [
+        "js"
+      ],
       "dir": null,
       "repo": "job",
       "live": [],
@@ -269,7 +275,9 @@
       "id": "game",
       "name": "game",
       "description": "Repo GitHub (non clone localement).",
-      "tags": ["ts"],
+      "tags": [
+        "ts"
+      ],
       "dir": null,
       "repo": "game",
       "live": [],
@@ -280,7 +288,10 @@
       "id": "home-manager-back",
       "name": "home-manager-back",
       "description": "Back de home-manager (non clone localement).",
-      "tags": ["ts", "back"],
+      "tags": [
+        "ts",
+        "back"
+      ],
       "dir": null,
       "repo": "home-manager-back",
       "live": [],
@@ -291,7 +302,9 @@
       "id": "quizz-administrator",
       "name": "quizz-administrator",
       "description": "Admin du quiz (non clone localement).",
-      "tags": ["ts"],
+      "tags": [
+        "ts"
+      ],
       "dir": null,
       "repo": "quizz-administrator",
       "live": [],
@@ -302,7 +315,10 @@
       "id": "marvel-front",
       "name": "marvel-front",
       "description": "Front Marvel (non clone localement).",
-      "tags": ["ts", "front"],
+      "tags": [
+        "ts",
+        "front"
+      ],
       "dir": null,
       "repo": "marvel-front",
       "live": [],
@@ -313,7 +329,10 @@
       "id": "marvel-back",
       "name": "marvel-back",
       "description": "Back Marvel (non clone localement).",
-      "tags": ["ts", "back"],
+      "tags": [
+        "ts",
+        "back"
+      ],
       "dir": null,
       "repo": "marvel-back",
       "live": [],
@@ -324,7 +343,9 @@
       "id": "sevenwonders2020",
       "name": "sevenwonders2020",
       "description": "Repo GitHub (non clone localement).",
-      "tags": ["js"],
+      "tags": [
+        "js"
+      ],
       "dir": null,
       "repo": "sevenwonders2020",
       "live": [],

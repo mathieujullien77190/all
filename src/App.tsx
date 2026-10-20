@@ -17,7 +17,7 @@ export function App() {
     const q = query.trim().toLowerCase()
     return (data?.projects ?? []).filter((p) => {
       if (filter === 'local' && !p.exists) return false
-      if (filter === 'github' && !p.repo) return false
+      if (filter === 'github' && p.exists) return false
       return !q || [p.name, p.description, ...p.tags].some((s) => s.toLowerCase().includes(q))
     })
   }, [data, query, filter])
@@ -70,7 +70,7 @@ export function App() {
             onClick={() => setFilter(f)}
             className={`rounded-md border px-3 py-1.5 text-sm ${filter === f ? 'border-sky-500 text-sky-300' : 'border-slate-700 text-slate-400'}`}
           >
-            {f === 'all' ? 'Tous' : f === 'local' ? 'Locaux' : 'Sur GitHub'}
+            {f === 'all' ? 'Tous' : f === 'local' ? 'Clones' : 'GitHub seul'}
           </button>
         ))}
         <span className="text-sm text-slate-500">{projects.length} projets</span>
