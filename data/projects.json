@@ -308,19 +308,6 @@
       "live": [],
       "resources": [],
       "packages": []
-    },
-    {
-      "id": "quizz-administrator",
-      "name": "quizz-administrator",
-      "description": "Admin du quiz (non clone localement).",
-      "tags": [
-        "ts"
-      ],
-      "dir": null,
-      "repo": "quizz-administrator",
-      "live": [],
-      "resources": [],
-      "packages": []
     }
   ]
 }
