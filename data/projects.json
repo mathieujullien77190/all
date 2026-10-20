@@ -72,6 +72,13 @@
       "kind": "backend",
       "url": "https://console.firebase.google.com/project/jobs-930d3",
       "note": "Firestore"
+    },
+    {
+      "id": "npm-flower-shell",
+      "label": "npm - flower-shell",
+      "kind": "repo",
+      "url": "https://www.npmjs.com/package/flower-shell",
+      "note": "package publie"
     }
   ],
   "projects": [
@@ -164,7 +171,9 @@
       "dir": "flower-shell-2",
       "repo": "flower-shell",
       "live": [],
-      "resources": [],
+      "resources": [
+        "npm-flower-shell"
+      ],
       "packages": [
         {
           "path": ".",
