@@ -3,3 +3,5 @@ dist
 *.local
 .env*
 *.tsbuildinfo
+data/local.json
+public/projects.static.json

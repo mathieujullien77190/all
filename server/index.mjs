@@ -13,6 +13,8 @@ const MAX_LOG_LINES = 300
 const LOCAL_ORIGIN = /^http:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/
 const SCRIPT_NAME = /^[\w:.-]+$/
 const LOCAL_URL = /https?:\/\/(?:localhost|127\.0\.0\.1|0\.0\.0\.0):\d+[\w/.-]*/
+const GIT_ORIGIN = /\[remote "origin"\][^[]*?url\s*=\s*\S*github\.com[:/]([^/\s]+)\/([^/\s]+?)(?:\.git)?\s*$/m
+const DISCOVERY_TTL_MS = 30_000
 const NO_AUTO_OPEN = new Set(['install', 'build', 'lint', 'typecheck', 'test'])
 
 const runs = new Map()
@@ -54,8 +56,30 @@ function readEnvKey(file, key) {
   }
 }
 
-// A project dir is relative to ROOT, or absolute when declared that way in data/projects.json.
-const resolveProjectDir = (dir) => (path.isAbsolute(dir) ? path.resolve(dir) : resolveInside(dir))
+// Local folders are never committed: they are found from the "origin" remote of each repo under ROOT.
+let discovery = { at: 0, repos: new Map() }
+
+function discoverRepos() {
+  if (Date.now() - discovery.at < DISCOVERY_TTL_MS) return discovery.repos
+  const repos = new Map()
+  const dirs = fs.readdirSync(ROOT, { withFileTypes: true }).filter((e) => e.isDirectory())
+  for (const entry of dirs) {
+    const dir = path.join(ROOT, entry.name)
+    const config = fs.existsSync(path.join(dir, '.git', 'config')) ? fs.readFileSync(path.join(dir, '.git', 'config'), 'utf8') : ''
+    const match = config.match(GIT_ORIGIN)
+    const key = match && `${match[1]}/${match[2]}`.toLowerCase()
+    if (key && !repos.has(key)) repos.set(key, dir)
+  }
+  discovery = { at: Date.now(), repos }
+  return repos
+}
+
+// data/local.json (git-ignored) maps a project id to a folder, for repos living outside ROOT.
+function resolveProjectDir(data, project) {
+  const override = readJson(path.join(APP_DIR, 'data', 'local.json'))?.[project.id]
+  if (override) return path.isAbsolute(override) ? path.resolve(override) : resolveInside(override)
+  return (project.repo && discoverRepos().get(`${data.github}/${project.repo}`.toLowerCase())) || null
+}
 
 function findProject(data, id) {
   const project = data.projects.find((p) => p.id === id)
@@ -63,18 +87,18 @@ function findProject(data, id) {
   return project
 }
 
-function projectDir(project) {
-  if (!project.dir) throw new HttpError(400, `${project.id} has no local folder`)
-  const dir = resolveProjectDir(project.dir)
-  if (!fs.existsSync(dir)) throw new HttpError(404, `Folder not found: ${dir}`)
+function projectDir(data, project) {
+  const dir = resolveProjectDir(data, project)
+  if (!dir || !fs.existsSync(dir)) throw new HttpError(404, `${project.id} is not cloned locally`)
   return dir
 }
 
-function packageDir(project, pkgPath) {
+function packageDir(data, project, pkgPath) {
   const pkg = project.packages.find((p) => p.path === pkgPath)
   if (!pkg) throw new HttpError(404, `Unknown package: ${pkgPath}`)
-  const dir = path.resolve(projectDir(project), pkg.path)
-  if (!dir.startsWith(projectDir(project))) throw new HttpError(400, 'Path outside project')
+  const root = projectDir(data, project)
+  const dir = path.resolve(root, pkg.path)
+  if (!dir.startsWith(root)) throw new HttpError(400, 'Path outside project')
   return dir
 }
 
@@ -106,7 +130,7 @@ function openTerminal(dir, command) {
 
 function describe(data) {
   const projects = data.projects.map((project) => {
-    const dir = project.dir ? resolveProjectDir(project.dir) : null
+    const dir = resolveProjectDir(data, project)
     const exists = Boolean(dir && fs.existsSync(dir))
     const packages = exists
       ? project.packages.map((pkg) => {
@@ -120,7 +144,7 @@ function describe(data) {
           }
         })
       : []
-    return { ...project, local: Boolean(project.dir), exists, packages }
+    return { ...project, local: exists, exists, packages }
   })
   return {
     github: data.github,
@@ -144,7 +168,7 @@ function pushLog(run, chunk) {
 function startRun({ project: projectId, pkg: pkgPath, script }) {
   const data = readData()
   const project = findProject(data, projectId)
-  const cwd = packageDir(project, pkgPath)
+  const cwd = packageDir(data, project, pkgPath)
   if (typeof script !== 'string' || !SCRIPT_NAME.test(script)) throw new HttpError(400, 'Invalid script name')
 
   const args = script === 'install' ? ['install'] : ['run', script]
@@ -208,7 +232,8 @@ function detached(cmd, args, options = {}) {
 }
 
 function openTarget({ project: projectId, target }) {
-  const dir = projectId ? projectDir(findProject(readData(), projectId)) : ROOT
+  const data = readData()
+  const dir = projectId ? projectDir(data, findProject(data, projectId)) : ROOT
   if (target === 'explorer') detached('explorer.exe', [dir])
   else if (target === 'code') detached('code', [dir], { shell: true })
   else if (target === 'terminal') openTerminal(dir)
@@ -221,8 +246,9 @@ function launchTool({ tool }) {
   if (tool !== 'compass') throw new HttpError(400, 'Unknown tool')
   const exe = compassPath()
   if (!exe) throw new HttpError(404, 'MongoDB Compass not found (set MONGO_COMPASS_PATH)')
-  const cfg = readData().tools?.mongoCompass
-  const uri = cfg ? readEnvKey(resolveInside(cfg.envFile), cfg.envKey) : null
+  const data = readData()
+  const cfg = data.tools?.mongoCompass
+  const uri = cfg ? readEnvKey(path.join(projectDir(data, findProject(data, cfg.project)), cfg.envFile), cfg.envKey) : null
   detached(exe, uri ? [uri] : [])
   return { ok: true, withConnection: Boolean(uri) }
 }

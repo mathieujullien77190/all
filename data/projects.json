@@ -28,7 +28,8 @@
   ],
   "tools": {
     "mongoCompass": {
-      "envFile": "order/.env.local",
+      "project": "books",
+      "envFile": ".env.local",
       "envKey": "MONGODB_URI"
     }
   },
@@ -99,9 +100,10 @@
         "tailwind",
         "vite"
       ],
-      "dir": "all",
       "repo": "all",
-      "live": [],
+      "live": [
+        "https://mathieujullien77190.github.io/all/"
+      ],
       "resources": [],
       "packages": [
         {
@@ -119,7 +121,6 @@
         "mongodb",
         "vercel"
       ],
-      "dir": "order",
       "repo": "books",
       "live": [
         "https://books-mathieu-jullien.vercel.app/"
@@ -144,7 +145,6 @@
         "react-native",
         "firebase"
       ],
-      "dir": "manu",
       "repo": "azimuth-quiz",
       "live": [
         "https://mathieujullien77190.github.io/azimuth-quiz/"
@@ -173,7 +173,6 @@
         "next",
         "vercel"
       ],
-      "dir": "aoc-art",
       "repo": "aoc-art",
       "live": [
         "https://mathieu-jullien.vercel.app/"
@@ -197,7 +196,6 @@
         "lib",
         "storybook"
       ],
-      "dir": "flower-shell-2",
       "repo": "flower-shell",
       "live": [
         "https://mathieujullien77190.github.io/flower-shell"
@@ -220,7 +218,6 @@
         "vite",
         "react"
       ],
-      "dir": "house",
       "repo": "house",
       "live": [
         "https://mathieujullien77190.github.io/house/"
@@ -241,7 +238,6 @@
         "game",
         "vite"
       ],
-      "dir": "testGame",
       "repo": "space-discover",
       "live": [
         "https://mathieujullien77190.github.io/space-discover/"
@@ -263,7 +259,6 @@
         "vite",
         "python"
       ],
-      "dir": "testLowPoly",
       "repo": "birds",
       "live": [
         "https://mathieujullien77190.github.io/birds/"
@@ -301,7 +296,6 @@
         "firebase",
         "github-pages"
       ],
-      "dir": "C:/Users/User/Desktop/boulot",
       "repo": "job",
       "live": [
         "https://mathieujullien77190.github.io/job/"
