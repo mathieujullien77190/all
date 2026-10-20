@@ -53,6 +53,7 @@ export interface Run {
   pkg: string
   script: string
   status: 'running' | 'exited'
+  stopped: boolean
   code: number | null
   pid: number | null
   startedAt: number

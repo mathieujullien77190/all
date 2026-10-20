@@ -29,7 +29,7 @@ export function RunsPanel({ runs, onStop }: Props) {
               onClick={() => setSelected(r.id)}
               className={`rounded border px-2 py-0.5 font-mono ${r.id === current.id ? 'border-sky-500 text-sky-300' : 'border-slate-700 text-slate-400'}`}
             >
-              {r.status === 'running' ? '● ' : r.code === 0 ? '✓ ' : '✗ '}
+              {r.status === 'running' ? '● ' : r.stopped ? '■ ' : r.code === 0 ? '✓ ' : '✗ '}
               {label(r)}
             </button>
           ))}

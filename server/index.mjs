@@ -113,6 +113,11 @@ function listRuns() {
   return [...runs.values()]
 }
 
+function pushLog(run, chunk) {
+  run.log.push(...stripAnsi(chunk.toString()).split(/\r?\n/).filter(Boolean))
+  if (run.log.length > MAX_LOG_LINES) run.log.splice(0, run.log.length - MAX_LOG_LINES)
+}
+
 function startRun({ project: projectId, pkg: pkgPath, script }) {
   const data = readData()
   const project = findProject(data, projectId)
@@ -127,11 +132,8 @@ function startRun({ project: projectId, pkg: pkgPath, script }) {
   const id = `${projectId}|${pkgPath}|${script}`
   if (runs.get(id)?.status === 'running') throw new HttpError(409, 'Already running')
 
-  const run = { id, project: projectId, pkg: pkgPath, script, status: 'running', code: null, pid: null, startedAt: Date.now(), log: [] }
-  const push = (chunk) => {
-    run.log.push(...stripAnsi(chunk.toString()).split(/\r?\n/).filter(Boolean))
-    if (run.log.length > MAX_LOG_LINES) run.log.splice(0, run.log.length - MAX_LOG_LINES)
-  }
+  const run = { id, project: projectId, pkg: pkgPath, script, status: 'running', stopped: false, code: null, pid: null, startedAt: Date.now(), log: [] }
+  const push = (chunk) => pushLog(run, chunk)
   const child = spawn('npm', args, { cwd, shell: true, env: { ...process.env, FORCE_COLOR: '0' } })
   run.pid = child.pid ?? null
   child.stdout.on('data', push)
@@ -140,6 +142,7 @@ function startRun({ project: projectId, pkg: pkgPath, script }) {
   child.on('close', (code) => {
     run.status = 'exited'
     run.code = code
+    push(run.stopped ? '■ Arrêté' : `■ Terminé (code ${code})`)
   })
   runs.set(id, Object.defineProperty(run, 'child', { value: child, enumerable: false }))
   return { id }
@@ -152,7 +155,11 @@ function killTree(pid) {
 function stopRun({ id }) {
   const run = runs.get(id)
   if (!run) throw new HttpError(404, 'Unknown run')
-  if (run.status === 'running' && run.pid) killTree(run.pid)
+  if (run.status === 'running' && run.pid) {
+    run.stopped = true
+    pushLog(run, '■ Arrêt demandé…')
+    killTree(run.pid)
+  }
   return { ok: true }
 }
 

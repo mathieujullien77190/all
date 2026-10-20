@@ -70,7 +70,7 @@
   "projects": [
     {
       "id": "books",
-      "name": "books (order)",
+      "name": "books",
       "description": "App Next.js de gestion de livres, stockage MongoDB, deploiement Vercel.",
       "tags": [
         "next",
@@ -95,7 +95,7 @@
     },
     {
       "id": "azimuth-quiz",
-      "name": "azimuth-quiz (manu)",
+      "name": "azimuth-quiz",
       "description": "Quiz mobile Expo + back-office admin Vite, donnees Firebase.",
       "tags": [
         "expo",
@@ -147,7 +147,7 @@
     },
     {
       "id": "flower-shell",
-      "name": "flower-shell (flower-shell-2)",
+      "name": "flower-shell",
       "description": "Terminal retro en React : moteur de commandes, historique, fenetre, rendu ASCII.",
       "tags": [
         "react",
@@ -186,7 +186,7 @@
     },
     {
       "id": "space-discover",
-      "name": "space-discover (testGame)",
+      "name": "space-discover",
       "description": "Jeu de decouverte spatiale avec moteur maison.",
       "tags": [
         "game",
@@ -205,7 +205,7 @@
     },
     {
       "id": "birds",
-      "name": "birds (testLowPoly)",
+      "name": "birds",
       "description": "Visionneuse STL, laser-control, site nichoir Pi, editeur d'oiseaux.",
       "tags": [
         "three",
@@ -241,7 +241,7 @@
     },
     {
       "id": "test",
-      "name": "test (test - Copie)",
+      "name": "test",
       "description": "Projet de test Vite avec tests unitaires et e2e.",
       "tags": [
         "vite",

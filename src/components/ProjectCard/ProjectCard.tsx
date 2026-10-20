@@ -101,7 +101,7 @@ interface ScriptButtonProps {
 
 function ScriptButton({ label, title, run, onRun, onStop }: ScriptButtonProps) {
   const running = run?.status === 'running'
-  const failed = run?.status === 'exited' && run.code !== 0
+  const failed = run?.status === 'exited' && !run.stopped && run.code !== 0
   const tone = running
     ? 'border-emerald-500 text-emerald-300'
     : failed
