@@ -14,6 +14,16 @@ npm run dev
 - front : http://localhost:5173
 - API locale : http://127.0.0.1:4777 (ecoute uniquement sur localhost)
 
+## Raccourci bureau
+
+```
+npm run shortcut
+```
+
+Crée `all.lnk` sur le bureau (icône : anneau d'or). Il lance `scripts/launch.ps1` : installe les dépendances
+au premier lancement, démarre le front + l'API, puis ouvre la page dans le navigateur. Si le dashboard tourne
+déjà, il ouvre juste la page.
+
 ## Config
 
 - `data/projects.json` : projets, liens, ressources. A modifier pour ajouter un projet.
