@@ -296,19 +296,6 @@
       ]
     },
     {
-      "id": "game",
-      "name": "game",
-      "description": "Repo GitHub (non clone localement).",
-      "tags": [
-        "ts"
-      ],
-      "dir": null,
-      "repo": "game",
-      "live": [],
-      "resources": [],
-      "packages": []
-    },
-    {
       "id": "home-manager-back",
       "name": "home-manager-back",
       "description": "Back de home-manager (non clone localement).",
