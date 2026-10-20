@@ -20,8 +20,8 @@ export function RunsPanel({ runs, onStop }: Props) {
   if (!current) return null
 
   return (
-    <section className="fixed inset-x-0 bottom-0 border-t border-slate-700 bg-slate-950/95 backdrop-blur">
-      <div className="mx-auto max-w-7xl px-4 py-2">
+    <aside className="sticky top-0 h-screen w-[28rem] shrink-0 border-l border-slate-700 bg-slate-950">
+      <div className="flex h-full flex-col p-3">
         <div className="mb-2 flex flex-wrap items-center gap-2 text-xs">
           {runs.map((r) => (
             <button
@@ -39,10 +39,10 @@ export function RunsPanel({ runs, onStop }: Props) {
             </button>
           )}
         </div>
-        <pre ref={logRef} className="h-40 overflow-auto rounded bg-black/60 p-2 font-mono text-xs text-slate-300">
+        <pre ref={logRef} className="min-h-0 flex-1 overflow-auto whitespace-pre-wrap break-all rounded bg-black/60 p-2 font-mono text-xs text-slate-300">
           {current.log.join('\n') || '(pas de sortie)'}
         </pre>
       </div>
-    </section>
+    </aside>
   )
 }

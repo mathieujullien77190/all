@@ -41,7 +41,8 @@ export function App() {
   if (!data) return <main className="p-8 text-slate-400">Chargement…</main>
 
   return (
-    <main className="mx-auto max-w-7xl space-y-6 px-4 pb-64 pt-6">
+    <div className="flex items-start">
+    <main className="mx-auto min-w-0 max-w-7xl flex-1 space-y-6 px-4 py-6">
       <header className="flex flex-wrap items-baseline justify-between gap-2">
         <h1 className="text-2xl font-bold text-slate-100">Mes projets</h1>
         <span className="text-xs text-slate-500">{data.root}</span>
@@ -92,7 +93,8 @@ export function App() {
         ))}
       </div>
 
-      <RunsPanel runs={runs} onStop={(id) => act(() => api.stop(id))} />
     </main>
+    <RunsPanel runs={runs} onStop={(id) => act(() => api.stop(id))} />
+    </div>
   )
 }
