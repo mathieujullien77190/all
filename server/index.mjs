@@ -86,9 +86,20 @@ function compassPath() {
   return candidates.find((p) => p && fs.existsSync(p)) ?? null
 }
 
-const windowsTerminalPath = () => {
-  const exe = path.join(process.env.LOCALAPPDATA ?? '', 'Microsoft', 'WindowsApps', 'wt.exe')
-  return fs.existsSync(exe) ? exe : null
+// wt.exe is an app execution alias: fs.existsSync/statSync fail on it (EACCES), so it is
+// spawned directly and the plain PowerShell window is only used if the spawn itself fails.
+const WT_EXE = path.join(process.env.LOCALAPPDATA ?? '', 'Microsoft', 'WindowsApps', 'wt.exe')
+
+function openTerminal(dir) {
+  const child = spawn(WT_EXE, ['-w', '0', 'new-tab', '--title', path.basename(dir), '-d', dir], {
+    detached: true,
+    stdio: 'ignore',
+  })
+  child.on('error', () => {
+    const safe = dir.replace(/'/g, "''")
+    detached('cmd.exe', ['/c', 'start', 'powershell', '-NoExit', '-Command', `Set-Location -LiteralPath '${safe}'`])
+  })
+  child.unref()
 }
 
 function describe(data) {
@@ -198,15 +209,8 @@ function openTarget({ project: projectId, target }) {
   const dir = projectId ? projectDir(findProject(readData(), projectId)) : ROOT
   if (target === 'explorer') detached('explorer.exe', [dir])
   else if (target === 'code') detached('code', [dir], { shell: true })
-  else if (target === 'terminal') {
-    if (windowsTerminalPath()) {
-      // `-w 0` = most recent Windows Terminal window: adds a tab there, or opens one if none is running.
-      detached('wt.exe', ['-w', '0', 'new-tab', '--title', path.basename(dir), '-d', dir])
-    } else {
-      const safe = dir.replace(/'/g, "''")
-      detached('cmd.exe', ['/c', 'start', 'powershell', '-NoExit', '-Command', `Set-Location -LiteralPath '${safe}'`])
-    }
-  } else throw new HttpError(400, 'Unknown target')
+  else if (target === 'terminal') openTerminal(dir)
+  else throw new HttpError(400, 'Unknown target')
   return { ok: true }
 }
 
