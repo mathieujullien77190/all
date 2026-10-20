@@ -246,7 +246,7 @@
     {
       "id": "birds",
       "name": "birds",
-      "description": "Visionneuse STL, laser-control, site nichoir Pi, editeur d'oiseaux.",
+      "description": "Visionneuse STL, laser-control, site nichoir Pi.",
       "tags": [
         "three",
         "vite",
@@ -269,14 +269,6 @@
         {
           "path": "pi/site",
           "label": "nichoir-pi-site"
-        },
-        {
-          "path": "archives/editeur-oiseaux",
-          "label": "editeur-oiseaux"
-        },
-        {
-          "path": "archives/ancien-monde-lowpoly",
-          "label": "photo-to-3d"
         }
       ]
     },
