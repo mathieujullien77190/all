@@ -90,6 +90,27 @@
   ],
   "projects": [
     {
+      "id": "all",
+      "name": "all",
+      "description": "Ce dashboard : liste des projets, ressources externes et lancement des scripts en local.",
+      "tags": [
+        "react",
+        "ts",
+        "tailwind",
+        "vite"
+      ],
+      "dir": "all",
+      "repo": "all",
+      "live": [],
+      "resources": [],
+      "packages": [
+        {
+          "path": ".",
+          "label": "dashboard"
+        }
+      ]
+    },
+    {
       "id": "books",
       "name": "books",
       "description": "App Next.js de gestion de livres, stockage MongoDB, deploiement Vercel.",
