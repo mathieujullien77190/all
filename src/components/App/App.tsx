@@ -65,7 +65,7 @@ export const App = () => {
           message={message}
         />
 
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid grid-cols-[repeat(auto-fill,minmax(min(360px,100%),1fr))] gap-4">
           {projects.map((p) => (
             <ProjectCard
               key={p.id}
