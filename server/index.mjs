@@ -52,6 +52,9 @@ function readEnvKey(file, key) {
   }
 }
 
+// A project dir is relative to ROOT, or absolute when declared that way in data/projects.json.
+const resolveProjectDir = (dir) => (path.isAbsolute(dir) ? path.resolve(dir) : resolveInside(dir))
+
 function findProject(data, id) {
   const project = data.projects.find((p) => p.id === id)
   if (!project) throw new HttpError(404, `Unknown project: ${id}`)
@@ -60,7 +63,7 @@ function findProject(data, id) {
 
 function projectDir(project) {
   if (!project.dir) throw new HttpError(400, `${project.id} has no local folder`)
-  const dir = resolveInside(project.dir)
+  const dir = resolveProjectDir(project.dir)
   if (!fs.existsSync(dir)) throw new HttpError(404, `Folder not found: ${dir}`)
   return dir
 }
@@ -83,7 +86,7 @@ function compassPath() {
 
 function describe(data) {
   const projects = data.projects.map((project) => {
-    const dir = project.dir ? resolveInside(project.dir) : null
+    const dir = project.dir ? resolveProjectDir(project.dir) : null
     const exists = Boolean(dir && fs.existsSync(dir))
     const packages = exists
       ? project.packages.map((pkg) => {

@@ -65,6 +65,13 @@
       "label": "GitHub Pages - azimuth-quiz",
       "kind": "hosting",
       "url": "https://github.com/mathieujullien77190/azimuth-quiz/settings/pages"
+    },
+    {
+      "id": "firebase-jobs",
+      "label": "Firebase - jobs-930d3",
+      "kind": "backend",
+      "url": "https://console.firebase.google.com/project/jobs-930d3",
+      "note": "Firestore"
     }
   ],
   "projects": [
@@ -261,15 +268,26 @@
     {
       "id": "job",
       "name": "job",
-      "description": "Repo GitHub (non clone localement).",
+      "description": "Suivi de candidatures : page Vite lue depuis Firestore, deployee sur GitHub Pages.",
       "tags": [
-        "js"
+        "vite",
+        "firebase",
+        "github-pages"
       ],
-      "dir": null,
+      "dir": "C:/Users/User/Desktop/boulot",
       "repo": "job",
-      "live": [],
-      "resources": [],
-      "packages": []
+      "live": [
+        "https://mathieujullien77190.github.io/job/"
+      ],
+      "resources": [
+        "firebase-jobs"
+      ],
+      "packages": [
+        {
+          "path": "candidatures",
+          "label": "candidatures"
+        }
+      ]
     },
     {
       "id": "game",
