@@ -25,7 +25,7 @@ export const ProjectCard = ({ project, github, resources, runs, onRun, onStop, o
 
     <dl className="space-y-0.5 text-xs">
       {project.repo && <LinkRow name="repo" url={repoUrl(github, project.repo)} />}
-      {project.repo && <LinkRow name="archi" url={architectureUrl(github, project.repo)} />}
+      {project.repo && project.id !== SELF_PROJECT_ID && <LinkRow name="archi" url={architectureUrl(github, project.repo)} />}
       {project.live.map((url) => (
         <LinkRow key={url} name="live" url={url} />
       ))}
