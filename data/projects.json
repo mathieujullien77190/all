@@ -49,7 +49,7 @@
     },
     {
       "id": "vercel-aoc",
-      "label": "Vercel - aoc2022",
+      "label": "Vercel - mathieu-jullien",
       "kind": "hosting",
       "url": "https://vercel.com/dashboard"
     },
@@ -147,7 +147,7 @@
       "dir": "aoc-art",
       "repo": "aoc-art",
       "live": [
-        "https://aoc2022.vercel.app"
+        "https://mathieu-jullien.vercel.app/"
       ],
       "resources": [
         "vercel-aoc"
