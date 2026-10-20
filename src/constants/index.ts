@@ -21,6 +21,7 @@ export const OPEN_ACTIONS: { target: OpenTarget; label: string }[] = [
   { target: 'explorer', label: '📁 Dossier' },
   { target: 'code', label: 'VS Code' },
   { target: 'terminal', label: 'Terminal' },
+  { target: 'claude', label: 'Claude' },
 ]
 
 export const PROJECT_FILTERS: { value: ProjectFilter; label: string }[] = [

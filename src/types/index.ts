@@ -61,7 +61,7 @@ export type Run = {
   log: string[]
 }
 
-export type OpenTarget = 'explorer' | 'code' | 'terminal'
+export type OpenTarget = 'explorer' | 'code' | 'terminal' | 'claude'
 
 export type ProjectFilter = 'all' | 'cloned' | 'remote'
 

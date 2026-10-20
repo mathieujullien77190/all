@@ -90,14 +90,16 @@ function compassPath() {
 // spawned directly and the plain PowerShell window is only used if the spawn itself fails.
 const WT_EXE = path.join(process.env.LOCALAPPDATA ?? '', 'Microsoft', 'WindowsApps', 'wt.exe')
 
-function openTerminal(dir) {
-  const child = spawn(WT_EXE, ['-w', '0', 'new-tab', '--title', path.basename(dir), '-d', dir], {
+function openTerminal(dir, command) {
+  const shellArgs = command ? ['powershell', '-NoExit', '-Command', command] : []
+  const child = spawn(WT_EXE, ['-w', '0', 'new-tab', '--title', path.basename(dir), '-d', dir, ...shellArgs], {
     detached: true,
     stdio: 'ignore',
   })
   child.on('error', () => {
     const safe = dir.replace(/'/g, "''")
-    detached('cmd.exe', ['/c', 'start', 'powershell', '-NoExit', '-Command', `Set-Location -LiteralPath '${safe}'`])
+    const init = `Set-Location -LiteralPath '${safe}'` + (command ? `; ${command}` : '')
+    detached('cmd.exe', ['/c', 'start', 'powershell', '-NoExit', '-Command', init])
   })
   child.unref()
 }
@@ -210,6 +212,7 @@ function openTarget({ project: projectId, target }) {
   if (target === 'explorer') detached('explorer.exe', [dir])
   else if (target === 'code') detached('code', [dir], { shell: true })
   else if (target === 'terminal') openTerminal(dir)
+  else if (target === 'claude') openTerminal(dir, 'claude')
   else throw new HttpError(400, 'Unknown target')
   return { ok: true }
 }
