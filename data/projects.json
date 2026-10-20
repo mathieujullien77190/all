@@ -178,7 +178,9 @@
       ],
       "dir": "flower-shell-2",
       "repo": "flower-shell",
-      "live": [],
+      "live": [
+        "https://mathieujullien77190.github.io/flower-shell"
+      ],
       "resources": [
         "npm-flower-shell"
       ],
