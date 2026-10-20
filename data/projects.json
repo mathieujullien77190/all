@@ -321,47 +321,6 @@
       "live": [],
       "resources": [],
       "packages": []
-    },
-    {
-      "id": "marvel-front",
-      "name": "marvel-front",
-      "description": "Front Marvel (non clone localement).",
-      "tags": [
-        "ts",
-        "front"
-      ],
-      "dir": null,
-      "repo": "marvel-front",
-      "live": [],
-      "resources": [],
-      "packages": []
-    },
-    {
-      "id": "marvel-back",
-      "name": "marvel-back",
-      "description": "Back Marvel (non clone localement).",
-      "tags": [
-        "ts",
-        "back"
-      ],
-      "dir": null,
-      "repo": "marvel-back",
-      "live": [],
-      "resources": [],
-      "packages": []
-    },
-    {
-      "id": "sevenwonders2020",
-      "name": "sevenwonders2020",
-      "description": "Repo GitHub (non clone localement).",
-      "tags": [
-        "js"
-      ],
-      "dir": null,
-      "repo": "sevenwonders2020",
-      "live": [],
-      "resources": [],
-      "packages": []
     }
   ]
 }
