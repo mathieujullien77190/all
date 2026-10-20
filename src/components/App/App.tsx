@@ -10,7 +10,7 @@ import { LOADING_TEXT, OFFLINE_TEXT, TOOL_LAUNCH_TEXT } from './constants'
 
 export const App = () => {
   const { data, error, reload } = useProjects()
-  const runs = useRuns()
+  const { runs, refresh } = useRuns()
   const [query, setQuery] = useState('')
   const [filter, setFilter] = useState<ProjectFilter>('all')
   const [message, setMessage] = useState<string | null>(null)
@@ -21,7 +21,10 @@ export const App = () => {
     fn()
       .then(() => setMessage(done ?? null))
       .catch((err: Error) => setMessage(err.message))
-      .finally(reload)
+      .finally(() => {
+        reload()
+        refresh()
+      })
 
   if (error && !data) {
     return (

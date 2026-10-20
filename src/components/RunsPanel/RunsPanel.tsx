@@ -24,7 +24,7 @@ export const RunsPanel = ({ runs, onStop }: RunsPanelProps) => {
               {runIcon(r)} {runLabel(r)}
             </Button>
           ))}
-          {current.status === 'running' && (
+          {current.status === 'running' && !current.stopped && (
             <Button tone="danger" className="ml-auto" onClick={() => onStop(current.id)}>
               stop
             </Button>

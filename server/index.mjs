@@ -148,17 +148,16 @@ function startRun({ project: projectId, pkg: pkgPath, script }) {
   return { id }
 }
 
-function killTree(pid) {
-  execFile('taskkill', ['/pid', String(pid), '/T', '/F'], () => {})
-}
+const killTree = (pid) =>
+  new Promise((resolve) => execFile('taskkill', ['/pid', String(pid), '/T', '/F'], () => resolve()))
 
-function stopRun({ id }) {
+async function stopRun({ id }) {
   const run = runs.get(id)
   if (!run) throw new HttpError(404, 'Unknown run')
   if (run.status === 'running' && run.pid) {
     run.stopped = true
     pushLog(run, '■ Arrêt demandé…')
-    killTree(run.pid)
+    await killTree(run.pid)
   }
   return { ok: true }
 }
