@@ -4,7 +4,7 @@ import Button from '@/components/ui/Button'
 import Card from '@/components/ui/Card'
 import Tag from '@/components/ui/Tag'
 import { IS_STATIC, OPEN_ACTIONS } from '@/constants'
-import { architectureUrl, repoUrl, serviceName } from '@/helpers'
+import { repoUrl, serviceName } from '@/helpers'
 import { REMOTE_ONLY_LABEL, SELF_CARD_CLASS, SELF_PROJECT_ID, STATIC_SCRIPTS_LABEL } from './constants'
 import type { ProjectCardProps } from './types'
 
@@ -25,7 +25,6 @@ export const ProjectCard = ({ project, github, resources, runs, onRun, onStop, o
 
     <dl className="space-y-0.5 text-xs">
       {project.repo && <LinkRow name="repo" url={repoUrl(github, project.repo)} />}
-      {project.repo && project.id !== SELF_PROJECT_ID && <LinkRow name="archi" url={architectureUrl(github, project.repo)} />}
       {project.live.map((url) => (
         <LinkRow key={url} name="live" url={url} />
       ))}

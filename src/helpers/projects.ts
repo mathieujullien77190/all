@@ -3,8 +3,6 @@ import type { Run } from '@/types'
 
 export const repoUrl = (github: string, repo: string): string => `${GITHUB_BASE_URL}/${github}/${repo}`
 
-export const architectureUrl = (github: string, repo: string): string => `${repoUrl(github, repo)}#architecture`
-
 export const runId = (project: string, pkg: string, script: string): string =>
   [project, pkg, script].join(RUN_ID_SEPARATOR)
 
