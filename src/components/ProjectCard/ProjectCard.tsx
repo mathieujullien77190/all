@@ -5,11 +5,11 @@ import Card from '@/components/ui/Card'
 import Tag from '@/components/ui/Tag'
 import { IS_STATIC, OPEN_ACTIONS } from '@/constants'
 import { architectureUrl, repoUrl, serviceName } from '@/helpers'
-import { REMOTE_ONLY_LABEL, STATIC_SCRIPTS_LABEL } from './constants'
+import { REMOTE_ONLY_LABEL, SELF_CARD_CLASS, SELF_PROJECT_ID, STATIC_SCRIPTS_LABEL } from './constants'
 import type { ProjectCardProps } from './types'
 
 export const ProjectCard = ({ project, github, resources, runs, onRun, onStop, onOpen }: ProjectCardProps) => (
-  <Card>
+  <Card className={project.id === SELF_PROJECT_ID ? SELF_CARD_CLASS : undefined}>
     <header className="space-y-1">
       <div className="flex items-start justify-between gap-2">
         <h2 className="font-semibold text-slate-100">{project.name}</h2>
