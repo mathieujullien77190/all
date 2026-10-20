@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState } from 'react'
 import type { PointerEvent } from 'react'
 import Button from '@/components/ui/Button'
+import ExternalLink from '@/components/ui/ExternalLink'
+import { displayUrl } from '@/helpers'
 import { EMPTY_LOG_TEXT } from './constants'
 import { clampWidth, readStoredWidth, runIcon, runLabel, storeWidth } from './helpers'
 import type { RunsPanelProps } from './types'
@@ -51,8 +53,13 @@ export const RunsPanel = ({ runs, onStop }: RunsPanelProps) => {
               {runIcon(r)} {runLabel(r)}
             </Button>
           ))}
+          {current.url && (
+            <ExternalLink href={current.url} variant="button" size="sm" tone="success" className="ml-auto">
+              ouvrir ↗ {displayUrl(current.url)}
+            </ExternalLink>
+          )}
           {current.status === 'running' && !current.stopped && (
-            <Button tone="danger" className="ml-auto" onClick={() => onStop(current.id)}>
+            <Button tone="danger" className={current.url ? '' : 'ml-auto'} onClick={() => onStop(current.id)}>
               stop
             </Button>
           )}

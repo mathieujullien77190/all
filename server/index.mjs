@@ -8,10 +8,12 @@ import { fileURLToPath } from 'node:url'
 
 const APP_DIR = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
 const ROOT = path.resolve(process.env.PROJECTS_ROOT ?? path.join(APP_DIR, '..'))
-const PORT = Number(process.env.PORT ?? 4777)
+const PORT = Number(process.env.ALL_API_PORT ?? 4777)
 const MAX_LOG_LINES = 300
 const LOCAL_ORIGIN = /^http:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/
 const SCRIPT_NAME = /^[\w:.-]+$/
+const LOCAL_URL = /https?:\/\/(?:localhost|127\.0\.0\.1|0\.0\.0\.0):\d+[\w/.-]*/
+const NO_AUTO_OPEN = new Set(['install', 'build', 'lint', 'typecheck', 'test'])
 
 const runs = new Map()
 
@@ -128,15 +130,23 @@ function startRun({ project: projectId, pkg: pkgPath, script }) {
   if (typeof script !== 'string' || !SCRIPT_NAME.test(script)) throw new HttpError(400, 'Invalid script name')
 
   const args = script === 'install' ? ['install'] : ['run', script]
-  if (script !== 'install' && !readJson(path.join(cwd, 'package.json'))?.scripts?.[script]) {
-    throw new HttpError(404, `Script not found: ${script}`)
-  }
+  const command = readJson(path.join(cwd, 'package.json'))?.scripts?.[script]
+  if (script !== 'install' && !command) throw new HttpError(404, `Script not found: ${script}`)
 
   const id = `${projectId}|${pkgPath}|${script}`
   if (runs.get(id)?.status === 'running') throw new HttpError(409, 'Already running')
 
-  const run = { id, project: projectId, pkg: pkgPath, script, status: 'running', stopped: false, code: null, pid: null, startedAt: Date.now(), log: [] }
-  const push = (chunk) => pushLog(run, chunk)
+  const run = { id, project: projectId, pkg: pkgPath, script, status: 'running', stopped: false, url: null, code: null, pid: null, startedAt: Date.now(), log: [] }
+  // Scripts that already open a browser themselves (e.g. `vite --open`) are not opened twice.
+  const autoOpen = !NO_AUTO_OPEN.has(script) && !/--open\b/.test(command ?? '')
+  const push = (chunk) => {
+    pushLog(run, chunk)
+    if (run.url) return
+    const found = stripAnsi(chunk.toString()).match(LOCAL_URL)
+    if (!found) return
+    run.url = found[0].replace('0.0.0.0', 'localhost')
+    if (autoOpen) detached('explorer.exe', [run.url])
+  }
   const child = spawn('npm', args, { cwd, shell: true, env: { ...process.env, FORCE_COLOR: '0' } })
   run.pid = child.pid ?? null
   child.stdout.on('data', push)

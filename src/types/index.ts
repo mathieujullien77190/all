@@ -54,6 +54,7 @@ export type Run = {
   script: string
   status: 'running' | 'exited'
   stopped: boolean
+  url: string | null
   code: number | null
   pid: number | null
   startedAt: number
