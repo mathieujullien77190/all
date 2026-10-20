@@ -86,6 +86,11 @@ function compassPath() {
   return candidates.find((p) => p && fs.existsSync(p)) ?? null
 }
 
+const windowsTerminalPath = () => {
+  const exe = path.join(process.env.LOCALAPPDATA ?? '', 'Microsoft', 'WindowsApps', 'wt.exe')
+  return fs.existsSync(exe) ? exe : null
+}
+
 function describe(data) {
   const projects = data.projects.map((project) => {
     const dir = project.dir ? resolveProjectDir(project.dir) : null
@@ -194,8 +199,13 @@ function openTarget({ project: projectId, target }) {
   if (target === 'explorer') detached('explorer.exe', [dir])
   else if (target === 'code') detached('code', [dir], { shell: true })
   else if (target === 'terminal') {
-    const safe = dir.replace(/'/g, "''")
-    detached('cmd.exe', ['/c', 'start', 'powershell', '-NoExit', '-Command', `Set-Location -LiteralPath '${safe}'`])
+    if (windowsTerminalPath()) {
+      // `-w 0` = most recent Windows Terminal window: adds a tab there, or opens one if none is running.
+      detached('wt.exe', ['-w', '0', 'new-tab', '--title', path.basename(dir), '-d', dir])
+    } else {
+      const safe = dir.replace(/'/g, "''")
+      detached('cmd.exe', ['/c', 'start', 'powershell', '-NoExit', '-Command', `Set-Location -LiteralPath '${safe}'`])
+    }
   } else throw new HttpError(400, 'Unknown target')
   return { ok: true }
 }

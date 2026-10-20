@@ -201,7 +201,9 @@
       ],
       "dir": "house",
       "repo": "house",
-      "live": [],
+      "live": [
+        "https://mathieujullien77190.github.io/house/"
+      ],
       "resources": [],
       "packages": [
         {
@@ -220,7 +222,9 @@
       ],
       "dir": "testGame",
       "repo": "space-discover",
-      "live": [],
+      "live": [
+        "https://mathieujullien77190.github.io/space-discover/"
+      ],
       "resources": [],
       "packages": [
         {

@@ -47,7 +47,6 @@ export const App = () => {
             <img src="/favicon.svg" alt="" className="size-10" />
             {APP_TITLE}
           </h1>
-          <span className="text-xs text-slate-500">{data.root}</span>
         </header>
 
         <LinksBar
