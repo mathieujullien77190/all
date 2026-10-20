@@ -11,6 +11,7 @@ export const API = {
 } as const
 
 export const RUNS_POLL_MS = 1500
+export const PROJECTS_POLL_MS = 5000
 export const RUN_ID_SEPARATOR = '|'
 export const ROOT_PACKAGE_PATH = '.'
 export const INSTALL_SCRIPT = 'install'

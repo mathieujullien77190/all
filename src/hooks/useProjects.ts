@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState } from 'react'
+import { PROJECTS_POLL_MS } from '@/constants'
 import { api } from '@/helpers'
 import type { ProjectsPayload } from '@/types'
 
@@ -18,6 +19,12 @@ export const useProjects = () => {
 
   useEffect(() => {
     reload()
+    const timer = setInterval(reload, PROJECTS_POLL_MS)
+    window.addEventListener('focus', reload)
+    return () => {
+      clearInterval(timer)
+      window.removeEventListener('focus', reload)
+    }
   }, [reload])
 
   return { data, error, reload }
