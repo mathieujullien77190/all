@@ -1,22 +1,17 @@
-import { useMemo, useState } from 'react'
-import Filters from '@/components/Filters'
+import { useState } from 'react'
 import LinksBar from '@/components/LinksBar'
 import LocalOnlyDialog from '@/components/LocalOnlyDialog'
 import ProjectCard from '@/components/ProjectCard'
 import RunsPanel from '@/components/RunsPanel'
-import { api, filterProjects, LocalOnlyError } from '@/helpers'
+import { api, LocalOnlyError } from '@/helpers'
 import { useProjects, useRuns } from '@/hooks'
-import type { ProjectFilter } from '@/types'
 import { APP_TITLE, LOADING_TEXT, OFFLINE_TEXT, TOOL_LAUNCH_TEXT } from './constants'
 
 export const App = () => {
   const { data, error, reload } = useProjects()
   const { runs, refresh } = useRuns()
-  const [filter, setFilter] = useState<ProjectFilter>('all')
   const [message, setMessage] = useState<string | null>(null)
   const [localOnly, setLocalOnly] = useState(false)
-
-  const projects = useMemo(() => filterProjects(data?.projects ?? [], filter), [data, filter])
 
   const act = (fn: () => Promise<unknown>, done?: string) =>
     fn()
@@ -59,15 +54,10 @@ export const App = () => {
           onOpenRoot={(target) => act(() => api.open(null, target))}
         />
 
-        <Filters
-          filter={filter}
-          onFilterChange={setFilter}
-          count={projects.length}
-          message={message}
-        />
+        {message && <p className="text-sm text-amber-300">{message}</p>}
 
         <div className="grid grid-cols-[repeat(auto-fill,minmax(min(360px,100%),1fr))] gap-4">
-          {projects.map((p) => (
+          {data.projects.map((p) => (
             <ProjectCard
               key={p.id}
               project={p}

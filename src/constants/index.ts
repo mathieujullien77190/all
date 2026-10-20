@@ -1,4 +1,4 @@
-import type { OpenTarget, ProjectFilter } from '@/types'
+import type { OpenTarget } from '@/types'
 
 export const API = {
   projects: '/api/projects',
@@ -26,10 +26,4 @@ export const OPEN_ACTIONS: { target: OpenTarget; label: string }[] = [
   { target: 'code', label: 'VS Code' },
   { target: 'terminal', label: 'Terminal' },
   { target: 'claude', label: 'Claude' },
-]
-
-export const PROJECT_FILTERS: { value: ProjectFilter; label: string }[] = [
-  { value: 'all', label: 'Tous' },
-  { value: 'cloned', label: 'Clones' },
-  { value: 'remote', label: 'GitHub seul' },
 ]

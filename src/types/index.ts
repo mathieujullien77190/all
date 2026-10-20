@@ -63,8 +63,6 @@ export type Run = {
 
 export type OpenTarget = 'explorer' | 'code' | 'terminal' | 'claude'
 
-export type ProjectFilter = 'all' | 'cloned' | 'remote'
-
 export type ButtonTone = 'default' | 'active' | 'success' | 'danger' | 'muted'
 
 export type ButtonSize = 'sm' | 'md'

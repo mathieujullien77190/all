@@ -1,5 +1,5 @@
 import { GITHUB_BASE_URL, RUN_ID_SEPARATOR } from '@/constants'
-import type { Project, ProjectFilter, Run } from '@/types'
+import type { Run } from '@/types'
 
 export const repoUrl = (github: string, repo: string): string => `${GITHUB_BASE_URL}/${github}/${repo}`
 
@@ -8,9 +8,6 @@ export const runId = (project: string, pkg: string, script: string): string =>
 
 export const findRun = (runs: Run[], project: string, pkg: string, script: string): Run | undefined =>
   runs.find((r) => r.id === runId(project, pkg, script))
-
-export const filterProjects = (projects: Project[], filter: ProjectFilter): Project[] =>
-  projects.filter((p) => (filter === 'cloned' ? p.exists : filter === 'remote' ? !p.exists : true))
 
 export const serviceName = (label: string): string => label.split(' - ')[0].toLowerCase()
 
