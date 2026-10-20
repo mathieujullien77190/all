@@ -1,124 +1,52 @@
-import { repoUrl } from '../../helpers'
-import type { OpenTarget, PackageInfo, Project, Resource, Run } from '../../types'
+import LinkRow from '@/components/LinkRow'
+import PackageScripts from '@/components/PackageScripts'
+import Button from '@/components/ui/Button'
+import Card from '@/components/ui/Card'
+import Tag from '@/components/ui/Tag'
+import { OPEN_ACTIONS } from '@/constants'
+import { repoUrl, serviceName } from '@/helpers'
+import { REMOTE_ONLY_LABEL } from './constants'
+import type { ProjectCardProps } from './types'
 
-interface Props {
-  project: Project
-  github: string
-  resources: Resource[]
-  runs: Run[]
-  onRun: (project: string, pkg: string, script: string) => void
-  onStop: (runId: string) => void
-  onOpen: (project: string, target: OpenTarget) => void
-}
-
-const small = 'rounded border border-slate-700 px-2 py-0.5 text-xs hover:border-sky-500 hover:text-sky-300'
-
-export function ProjectCard({ project, github, resources, runs, onRun, onStop, onOpen }: Props) {
-  const linked = resources.filter((r) => project.resources.includes(r.id))
-  const runOf = (pkg: PackageInfo, script: string) =>
-    runs.find((r) => r.id === `${project.id}|${pkg.path}|${script}`)
-
-  return (
-    <article className="flex flex-col gap-3 rounded-lg border border-slate-800 bg-slate-900 p-4">
-      <header className="space-y-1">
-        <div className="flex items-start justify-between gap-2">
-          <h2 className="font-semibold text-slate-100">{project.name}</h2>
-          {!project.local && <span className="text-xs text-amber-400">GitHub seul</span>}
-        </div>
-        <p className="text-sm text-slate-400">{project.description}</p>
-        <div className="flex flex-wrap gap-1">
-          {project.tags.map((t) => (
-            <span key={t} className="rounded bg-slate-800 px-1.5 py-0.5 text-[11px] text-slate-400">
-              {t}
-            </span>
-          ))}
-        </div>
-      </header>
-
-      <dl className="space-y-0.5 text-xs">
-        {project.repo && <LinkRow name="repo" url={repoUrl(github, project.repo)} />}
-        {project.live.map((url) => (
-          <LinkRow key={url} name="live" url={url} />
+export const ProjectCard = ({ project, github, resources, runs, onRun, onStop, onOpen }: ProjectCardProps) => (
+  <Card>
+    <header className="space-y-1">
+      <div className="flex items-start justify-between gap-2">
+        <h2 className="font-semibold text-slate-100">{project.name}</h2>
+        {!project.local && <span className="text-xs text-amber-400">{REMOTE_ONLY_LABEL}</span>}
+      </div>
+      <p className="text-sm text-slate-400">{project.description}</p>
+      <div className="flex flex-wrap gap-1">
+        {project.tags.map((tag) => (
+          <Tag key={tag}>{tag}</Tag>
         ))}
-        {linked.map((r) => (
-          <LinkRow key={r.id} name={r.label.split(' - ')[0].toLowerCase()} url={r.url} title={r.note} />
-        ))}
-      </dl>
+      </div>
+    </header>
 
-      {project.exists && (
-        <div className="flex flex-wrap gap-2 text-xs">
-          <button className={small} onClick={() => onOpen(project.id, 'explorer')}>
-            📁 dossier
-          </button>
-          <button className={small} onClick={() => onOpen(project.id, 'code')}>
-            VS Code
-          </button>
-          <button className={small} onClick={() => onOpen(project.id, 'terminal')}>
-            terminal
-          </button>
-        </div>
-      )}
-
-      {project.packages.map((pkg) => (
-        <div key={pkg.path} className="space-y-1.5 border-t border-slate-800 pt-2">
-          <div className="text-xs text-slate-500">
-            {pkg.label} {!pkg.installed && <span className="text-amber-400">(deps non installees)</span>}
-          </div>
-          <div className="flex flex-wrap gap-1.5">
-            {!pkg.installed && <ScriptButton label="install" run={runOf(pkg, 'install')} onRun={() => onRun(project.id, pkg.path, 'install')} onStop={onStop} />}
-            {Object.keys(pkg.scripts).map((script) => (
-              <ScriptButton
-                key={script}
-                label={script}
-                title={pkg.scripts[script]}
-                run={runOf(pkg, script)}
-                onRun={() => onRun(project.id, pkg.path, script)}
-                onStop={onStop}
-              />
-            ))}
-          </div>
-        </div>
+    <dl className="space-y-0.5 text-xs">
+      {project.repo && <LinkRow name="repo" url={repoUrl(github, project.repo)} />}
+      {project.live.map((url) => (
+        <LinkRow key={url} name="live" url={url} />
       ))}
-    </article>
-  )
-}
+      {resources
+        .filter((r) => project.resources.includes(r.id))
+        .map((r) => (
+          <LinkRow key={r.id} name={serviceName(r.label)} url={r.url} title={r.note} />
+        ))}
+    </dl>
 
-function LinkRow({ name, url, title }: { name: string; url: string; title?: string }) {
-  return (
-    <div className="flex gap-1.5" title={title}>
-      <dt className="shrink-0 text-slate-500">{name} :</dt>
-      <dd className="min-w-0 truncate">
-        <a href={url} target="_blank" rel="noreferrer" className="text-sky-400 hover:underline">
-          {url.replace(/^https?:\/\//, '')}
-        </a>
-      </dd>
-    </div>
-  )
-}
+    {project.exists && (
+      <div className="flex flex-wrap gap-2">
+        {OPEN_ACTIONS.map(({ target, label }) => (
+          <Button key={target} onClick={() => onOpen(project.id, target)}>
+            {label}
+          </Button>
+        ))}
+      </div>
+    )}
 
-interface ScriptButtonProps {
-  label: string
-  title?: string
-  run?: Run
-  onRun: () => void
-  onStop: (runId: string) => void
-}
-
-function ScriptButton({ label, title, run, onRun, onStop }: ScriptButtonProps) {
-  const running = run?.status === 'running'
-  const failed = run?.status === 'exited' && !run.stopped && run.code !== 0
-  const tone = running
-    ? 'border-emerald-500 text-emerald-300'
-    : failed
-      ? 'border-red-500/60 text-red-300'
-      : 'border-slate-700 hover:border-sky-500 hover:text-sky-300'
-  return (
-    <button
-      title={title}
-      onClick={() => (running && run ? onStop(run.id) : onRun())}
-      className={`rounded border px-2 py-0.5 font-mono text-xs ${tone}`}
-    >
-      {running ? '■' : '▶'} {label}
-    </button>
-  )
-}
+    {project.packages.map((pkg) => (
+      <PackageScripts key={pkg.path} projectId={project.id} pkg={pkg} runs={runs} onRun={onRun} onStop={onStop} />
+    ))}
+  </Card>
+)

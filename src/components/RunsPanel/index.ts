@@ -1,1 +1,1 @@
-export { RunsPanel } from './RunsPanel'
+export { RunsPanel as default } from './RunsPanel'

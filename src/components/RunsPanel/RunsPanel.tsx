@@ -1,14 +1,10 @@
 import { useEffect, useRef, useState } from 'react'
-import type { Run } from '../../types'
+import Button from '@/components/ui/Button'
+import { EMPTY_LOG_TEXT } from './constants'
+import { runIcon, runLabel } from './helpers'
+import type { RunsPanelProps } from './types'
 
-interface Props {
-  runs: Run[]
-  onStop: (runId: string) => void
-}
-
-const label = (r: Run) => `${r.project}${r.pkg === '.' ? '' : `/${r.pkg}`} · ${r.script}`
-
-export function RunsPanel({ runs, onStop }: Props) {
+export const RunsPanel = ({ runs, onStop }: RunsPanelProps) => {
   const [selected, setSelected] = useState<string | null>(null)
   const logRef = useRef<HTMLPreElement>(null)
   const current = runs.find((r) => r.id === selected) ?? runs[runs.length - 1]
@@ -22,25 +18,20 @@ export function RunsPanel({ runs, onStop }: Props) {
   return (
     <aside className="sticky top-0 h-screen w-[28rem] shrink-0 border-l border-slate-700 bg-slate-950">
       <div className="flex h-full flex-col p-3">
-        <div className="mb-2 flex flex-wrap items-center gap-2 text-xs">
+        <div className="mb-2 flex flex-wrap items-center gap-2">
           {runs.map((r) => (
-            <button
-              key={r.id}
-              onClick={() => setSelected(r.id)}
-              className={`rounded border px-2 py-0.5 font-mono ${r.id === current.id ? 'border-sky-500 text-sky-300' : 'border-slate-700 text-slate-400'}`}
-            >
-              {r.status === 'running' ? '● ' : r.stopped ? '■ ' : r.code === 0 ? '✓ ' : '✗ '}
-              {label(r)}
-            </button>
+            <Button key={r.id} tone={r.id === current.id ? 'active' : 'muted'} className="font-mono" onClick={() => setSelected(r.id)}>
+              {runIcon(r)} {runLabel(r)}
+            </Button>
           ))}
           {current.status === 'running' && (
-            <button onClick={() => onStop(current.id)} className="ml-auto rounded border border-red-500/60 px-2 py-0.5 text-red-300">
+            <Button tone="danger" className="ml-auto" onClick={() => onStop(current.id)}>
               stop
-            </button>
+            </Button>
           )}
         </div>
         <pre ref={logRef} className="min-h-0 flex-1 overflow-auto whitespace-pre-wrap break-all rounded bg-black/60 p-2 font-mono text-xs text-slate-300">
-          {current.log.join('\n') || '(pas de sortie)'}
+          {current.log.join('\n') || EMPTY_LOG_TEXT}
         </pre>
       </div>
     </aside>

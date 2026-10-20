@@ -1,52 +1,34 @@
-import type { LinkItem, Resource, Tool } from '../../types'
+import Button from '@/components/ui/Button'
+import ExternalLink from '@/components/ui/ExternalLink'
+import { OPEN_ACTIONS } from '@/constants'
+import { TOOL_UNAVAILABLE_TITLE } from './constants'
+import type { LinksBarProps } from './types'
 
-interface Props {
-  links: LinkItem[]
-  resources: Resource[]
-  tools: Tool[]
-  onTool: (id: string) => void
-  onOpenRoot: (target: 'explorer' | 'code' | 'terminal') => void
-}
-
-const chip = 'rounded-md border border-slate-700 px-3 py-1.5 text-sm hover:border-sky-500 hover:text-sky-300'
-
-export function LinksBar({ links, resources, tools, onTool, onOpenRoot }: Props) {
-  return (
-    <section className="space-y-3">
-      <div className="flex flex-wrap gap-2">
-        {links.map((l) => (
-          <a key={l.url} href={l.url} target="_blank" rel="noreferrer" className={chip}>
-            {l.label} ↗
-          </a>
-        ))}
-        {tools.map((t) => (
-          <button
-            key={t.id}
-            disabled={!t.available}
-            onClick={() => onTool(t.id)}
-            className={`${chip} disabled:cursor-not-allowed disabled:opacity-40`}
-            title={t.available ? 'Lance l’application locale' : 'Introuvable'}
-          >
-            ▶ {t.label}
-          </button>
-        ))}
-        <button onClick={() => onOpenRoot('explorer')} className={chip}>
-          📁 Dossier projets
-        </button>
-        <button onClick={() => onOpenRoot('code')} className={chip}>
-          VS Code
-        </button>
-        <button onClick={() => onOpenRoot('terminal')} className={chip}>
-          Terminal
-        </button>
-      </div>
-      <div className="flex flex-wrap gap-x-4 gap-y-1 text-xs text-slate-400">
-        {resources.map((r) => (
-          <a key={r.id} href={r.url} target="_blank" rel="noreferrer" className="hover:text-sky-300" title={r.note}>
-            <span className="uppercase text-slate-500">{r.kind}</span> {r.label}
-          </a>
-        ))}
-      </div>
-    </section>
-  )
-}
+export const LinksBar = ({ links, resources, tools, onTool, onOpenRoot }: LinksBarProps) => (
+  <section className="space-y-3">
+    <div className="flex flex-wrap gap-2">
+      {links.map((l) => (
+        <ExternalLink key={l.url} href={l.url} variant="button">
+          {l.label} ↗
+        </ExternalLink>
+      ))}
+      {tools.map((t) => (
+        <Button key={t.id} size="md" disabled={!t.available} title={t.available ? undefined : TOOL_UNAVAILABLE_TITLE} onClick={() => onTool(t.id)}>
+          ▶ {t.label}
+        </Button>
+      ))}
+      {OPEN_ACTIONS.map(({ target, label }) => (
+        <Button key={target} size="md" onClick={() => onOpenRoot(target)}>
+          {label}
+        </Button>
+      ))}
+    </div>
+    <div className="flex flex-wrap gap-x-4 gap-y-1 text-xs text-slate-400">
+      {resources.map((r) => (
+        <ExternalLink key={r.id} href={r.url} title={r.note} className="text-slate-400 hover:text-sky-300">
+          <span className="uppercase text-slate-500">{r.kind}</span> {r.label}
+        </ExternalLink>
+      ))}
+    </div>
+  </section>
+)

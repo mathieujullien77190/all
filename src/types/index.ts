@@ -1,9 +1,9 @@
-export interface LinkItem {
+export type LinkItem = {
   label: string
   url: string
 }
 
-export interface Resource {
+export type Resource = {
   id: string
   label: string
   kind: 'database' | 'hosting' | 'backend' | 'repo' | 'tool'
@@ -11,7 +11,7 @@ export interface Resource {
   note?: string
 }
 
-export interface PackageInfo {
+export type PackageInfo = {
   path: string
   label: string
   name?: string
@@ -19,7 +19,7 @@ export interface PackageInfo {
   installed: boolean
 }
 
-export interface Project {
+export type Project = {
   id: string
   name: string
   description: string
@@ -32,13 +32,13 @@ export interface Project {
   packages: PackageInfo[]
 }
 
-export interface Tool {
+export type Tool = {
   id: string
   label: string
   available: boolean
 }
 
-export interface ProjectsPayload {
+export type ProjectsPayload = {
   github: string
   root: string
   links: LinkItem[]
@@ -47,7 +47,7 @@ export interface ProjectsPayload {
   projects: Project[]
 }
 
-export interface Run {
+export type Run = {
   id: string
   project: string
   pkg: string
@@ -61,3 +61,9 @@ export interface Run {
 }
 
 export type OpenTarget = 'explorer' | 'code' | 'terminal'
+
+export type ProjectFilter = 'all' | 'cloned' | 'remote'
+
+export type ButtonTone = 'default' | 'active' | 'success' | 'danger' | 'muted'
+
+export type ButtonSize = 'sm' | 'md'

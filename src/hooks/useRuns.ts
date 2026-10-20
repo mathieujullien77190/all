@@ -1,16 +1,15 @@
 import { useEffect, useState } from 'react'
-import { api } from '../helpers'
-import type { Run } from '../types'
+import { RUNS_POLL_MS } from '@/constants'
+import { api } from '@/helpers'
+import type { Run } from '@/types'
 
-const POLL_MS = 1500
-
-export function useRuns() {
+export const useRuns = (): Run[] => {
   const [runs, setRuns] = useState<Run[]>([])
 
   useEffect(() => {
     const tick = () => api.runs().then(setRuns).catch(() => {})
     tick()
-    const timer = setInterval(tick, POLL_MS)
+    const timer = setInterval(tick, RUNS_POLL_MS)
     return () => clearInterval(timer)
   }, [])
 

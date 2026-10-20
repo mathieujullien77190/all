@@ -1,8 +1,8 @@
 import { useCallback, useEffect, useState } from 'react'
-import { api } from '../helpers'
-import type { ProjectsPayload } from '../types'
+import { api } from '@/helpers'
+import type { ProjectsPayload } from '@/types'
 
-export function useProjects() {
+export const useProjects = () => {
   const [data, setData] = useState<ProjectsPayload | null>(null)
   const [error, setError] = useState<string | null>(null)
 

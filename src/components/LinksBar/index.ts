@@ -1,1 +1,1 @@
-export { LinksBar } from './LinksBar'
+export { LinksBar as default } from './LinksBar'
