@@ -6,6 +6,10 @@
       "url": "https://github.com/mathieujullien77190"
     },
     {
+      "label": "LinkedIn",
+      "url": "https://www.linkedin.com/in/mathieu-jullien-dev"
+    },
+    {
       "label": "Vercel",
       "url": "https://vercel.com/dashboard"
     },
@@ -292,6 +296,28 @@
         {
           "path": "candidatures",
           "label": "candidatures"
+        }
+      ]
+    },
+    {
+      "id": "cnc",
+      "name": "cnc",
+      "description": "Modele 3D genere par IA (LLM), mis a plat et decoupe au laser.",
+      "tags": [
+        "three",
+        "vite",
+        "redux",
+        "laser"
+      ],
+      "repo": "cnc",
+      "live": [
+        "https://mathieujullien77190.github.io/cnc/"
+      ],
+      "resources": [],
+      "packages": [
+        {
+          "path": ".",
+          "label": "app"
         }
       ]
     }
